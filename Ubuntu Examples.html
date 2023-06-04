@@ -1,0 +1,180 @@
+
+<h2 id="start_desktop_environment">Starting Desktop Environments</h2>
+<p>If you exit your desktop environment to a shell or boot into a shell, you might want to start a desktop environment such as KDE, GNOME, LXDE, or XFCE.</p>
+<p>Start the X Server (this will start your desktop environment as well if it is configured to do so) via the Ubuntu shell:</p>
+<pre class="kmconsole">startx</pre>
+<p>Start XFCE 4:</p>
+<pre class="kmconsole">exec startxfce4</pre>
+<p>Start KDE:</p>
+<pre class="kmconsole">exec startkde</pre>
+<p>Start LXDE:</p>
+<pre class="kmconsole">exec startlxde</pre>
+<p>In some cases, you may need to put those commands in your <span style="color: #808080">~/.xinitrc</span> file and then type ‘startx’ for them to work correctly.</p>
+<h2 id="displaying_and_editing">Displaying, Viewing, And Editing Files</h2>
+<p>How to edit or view the contents of a file in Ubuntu via command line:</p>
+<p><strong>nano:</strong> Nano is a text editor that is often preinstalled on Linux distributions. You can create a new text file or edit an existing one (whether text or a configuration file). Here is an example of its usage via the Ubuntu shell:</p>
+<pre class="kmconsole">nano newfile.txt</pre>
+<p><strong>less:</strong> The ‘less’ command displays the contents of a file right there in the command prompt window, and you can scroll through it easily by pressing the enter button. An example of this command’s usage:</p>
+<pre class="kmconsole">less filename.txt</pre>
+<p><strong>echo:</strong> The ‘echo’ command can be used to print a value or a string to the screen, and it can also be used to write text to a file. For example, you can use it to write ‘Yay’ to a text file named yay.txt as shown below:</p>
+<pre class="kmconsole">echo "Yay" &gt; yay.txt</pre>
+<p><strong>Converting a string to hexadecimal:</strong> You can convert a string to hexadecimal using the echo command as shown:</p>
+<pre class="kmconsole">echo -n "This string will be converted to hexadecimal format" | od -A n -t x1</pre>
+<p><strong>Locate a file, which is especially useful if you need to find a config file: </strong></p>
+<pre class="kmconsole">locate filename</pre>
+<p><strong>Display the contents of a file all at once:</strong></p>
+<pre class="kmconsole">cat filename.txt</pre>
+<p><strong>View the last row of a file (continuously, which will keep printing the latest line if the file changes):</strong></p>
+<pre class="kmconsole">tail -f filename</pre>
+<h2 id="installing_software">Adding Software: Ubuntu Commands For Package Installation</h2>
+<p>How to install an app/program in Ubuntu via command line:</p>
+<p><em>You might have to type sudo before some of these Ubuntu commands.</em></p>
+<p><span style="color: #003366">You may need to type ‘</span><span style="color: #003366"><strong>apt-get</strong></span><span style="color: #003366">‘ instead of ‘</span><span style="color: #003366"><strong>apt</strong></span><span style="color: #003366">‘ in older versions of Ubuntu.</span></p>
+<p><strong>apt install</strong>: This command installs a package in Ubuntu. An example of this command’s usage is: sudo apt install nano. If you want to install a package, but want to get the exact package name needed for installation (we’ll use Chromium for this example, a browser), you can use apt-cache search as shown below.</p>
+<pre class="kmconsole">apt-cache search chromium</pre>
+<p>That should return a list of Ubuntu packages matching those search terms (along with their descriptions, if you’re exploring and want to find new apps), and you’ll most likely see ‘chromium-browser’ in the results. That means you can install Chromium by typing:</p>
+<pre class="kmconsole">apt install chromium-browser</pre>
+<pre class="kmconsole">apt install firefox</pre>
+<p><strong>Install a package from a .deb file via command line:</strong></p>
+<pre class="kmconsole">dpkg -i packagename.deb</pre>
+<h2 id="removing_software">Removing Packages/Uninstalling Software In Ubuntu</h2>
+<p>How to uninstall an Ubuntu package via command line:</p>
+<p>The <strong>apt remove</strong> command uninstalls packages in Ubuntu. For example, you could use it like this:</p>
+<pre class="kmconsole">apt remove chromium-browser.</pre>
+<p>Bear in mind that ‘apt remove’ won’t always remove associated packages (dependencies, in this case) that may have been installed.</p>
+<p>Another useful Ubuntu command is ‘apt autoremove’. The autoremove command cleans up Ubuntu packages left behind during the (sometimes) incomplete uninstall process mentioned above. Example Usage:</p>
+<pre class="kmconsole">apt autoremove</pre>
+<p>If you need to remove an app more thoroughly, including its configuration files and settings you can use the purge option:</p>
+<pre class="kmconsole">apt remove --purge appname</pre>
+<h2 id="authentication_and_accounts">Ubuntu Authentication/User Account Commands</h2>
+<p><strong>login:</strong>&nbsp;The login command can be used to log into a user account via the command line on Ubuntu. Example Usage:</p>
+<pre class="kmconsole">login</pre>
+<p><strong>logout:</strong> The logout command logs you out of a user account via the command line/terminal. This is useful for ssh sessions if you want to get off a VPS that you’re logged into. Example Usage:</p>
+<pre class="kmconsole">logout</pre>
+<p><strong>sudo:</strong> The sudo command lets a non-root account perform administrative tasks on Ubuntu (depending on whether they are in the sudoers file and the permissions set in the configuration) by typing sudo before commands they execute, and they normally have to enter a password to proceed.</p>
+<p>This is useful if you want to let someone use your computer, while limiting their permissions. Example Usage:</p>
+<pre class="kmconsole">sudo apt install package-name</pre>
+<p><strong>su:</strong> The su command lets you quickly switch to the root account in an Ubuntu terminal window. Example Usage: type ‘su’ followed by the root password when it prompts you for it.</p>
+<p>It is inadvisable to stay logged in as the root user on Linux.</p>
+<p><strong>passwd:</strong> The passwd command changes a user password. Example Usage: Type ‘passwd’ and follow the provided instructions/enter your new password.</p>
+<p>Generate a random password using OpenSSL:</p>
+<pre class="kmconsole">openssl rand -base64 16</pre>
+<p>This can also be done with the GPG tool:</p>
+<pre class="kmconsole">gpg --gen-random --armor 1 14</pre>
+<h3>Clear Scrollback/Erase Terminal Contents In Linux</h3>
+<p>If you’ve typed a password or something confidential in the terminal and need to clear your scrollback or erase your terminal history, use the following command:</p>
+<pre class="kmconsole">history -c</pre>
+<p><strong>ssh:</strong> You can use this command to connect to your remote server or other machine (for example: a server on a VPS web hosting account) for shell access without having to use your browser. Example Usage:</p>
+<pre class="kmconsole">ssh username@domain.com</pre>
+<p>OR</p>
+<pre class="kmconsole">ssh username@ipaddress</pre>
+<p>Shut down your SSH server:</p>
+<pre class="kmconsole">service ssh stop</pre>
+<p>OR to start your SSH server:</p>
+<pre class="kmconsole">service ssh start</pre>
+<p><strong>chmod:</strong> The ‘chmod’ command changes permissions. You can use it to set read, write, and access permissions on a file, for example. Example Usage: <strong>chmod 754 filename.txt</strong>.</p>
+<p><strong>chown:</strong> The ‘chown’ command changes ownership of a file or directory. Example Usage:</p>
+<pre class="kmconsole">chown newowner plop.txt</pre>
+<p><strong>chroot:</strong> This enables you to change the current root directory for the terminal window you’re in.&nbsp;<a href="http://packaging.ubuntu.com/html/chroots.html">Usage</a>.</p>
+<p><strong>users:</strong> The ‘users’ command in Ubuntu will list the users that are currently logged in. Example Usage:</p>
+<pre class="kmconsole">users</pre>
+<p><strong>adduser:</strong> The ‘adduser’ command in Ubuntu creates a new user.</p>
+<p>Example Usage:</p>
+<pre class="kmconsole">adduser newusername</pre>
+<p><strong>userdel:</strong> The ‘userdel’ command allows you to delete a user in Ubuntu. Example Usage:</p>
+<pre class="kmconsole">userdel username</pre>
+<p><strong>visudo:</strong> This Ubuntu command enables you to edit the sudoers file, which you may need if creating a new user and need to give them sudo or other administrative privileges. Example Usage:</p>
+<pre class="kmconsole">visudo</pre>
+<p><strong>groups:</strong> The ‘groups’ command lists user groups. It <a href="https://www.howtoforge.com/tutorial/linux-groups-command/">can also list the groups that a particular user is in</a>. Example Usage: <strong>groups</strong> username.</p>
+<h2 id="download_files">Download Files Via The Command Line On Linux</h2>
+<p>‘<strong>wget</strong>‘ is one of those useful Ubuntu commands (although not exclusive to Ubuntu) you can use to download files via the command line. It saves URLs to a file, for example performing wget on an HTML page will download it and save it to a file. This works on not only Ubuntu, but the rest of the Linux distributions as well.</p>
+<p>Example Usage:</p>
+<pre class="kmconsole">wget http://domain.com/filename.txt</pre>
+<p><strong>curl:&nbsp;</strong>curl is not installed on all machines, but it is found on many. You can use it download and print the contents of a file to the screen, or for other purposes as well. Example Usage:</p>
+<pre class="kmconsole">curl&nbsp;http://domain.com/filename.txt</pre>
+<h2 id="drives_and_directory_management">Accessing/Manipulating Drives And Directories In Linux</h2>
+<p>If you haven’t booted into a desktop environment and don’t see your partition, second hard drive, or external USB drive in Ubuntu (or any Linux distribution) you may need to mount the drive using the <strong>mount</strong> command.</p>
+<p>‘*’ refers to the number of the device. If you find the device and it is /dev/sda6, then you would simply replace the ‘*’ with ‘6’. Example Usage: <strong>mount</strong> /dev/sda* /mnt/directory_you_created</p>
+<p>An example Ubuntu command to unmount a drive:</p>
+<pre class="kmconsole">umount /mnt/directory_you_created</pre>
+<p><strong>Ubuntu command to enter a directory or mounted drive:</strong></p>
+<p>You can use the ‘cd’ command to enter a directory by typing ‘<strong>cd directory_name</strong>‘.</p>
+<p><strong>List directory contents:</strong></p>
+<p>You can list the contents of the directory you entered by typing one of the ‘<strong>ls</strong>‘ Ubuntu commands. You can type ‘<strong>ls -a</strong>‘ to list the files and folders with their respective permissions.</p>
+<p><strong>Create a directory in Ubuntu:</strong></p>
+<pre class="kmconsole">mkdir directoryname</pre>
+<p><strong>Remove a directory in Ubuntu:</strong></p>
+<p>You can remove a directory using the ‘rmdir’ command if it is empty. In order to remove a directory that contains files, you can use the ‘rm’ command with the parameter ‘rf’ like this: ‘<strong>rm -rf plop</strong>‘. ‘plop’ is the directory name in this case.</p>
+<p><strong>Remove a file in Ubuntu:</strong></p>
+<pre class="kmconsole">rm filename</pre>
+<p><strong>List drives in Ubuntu and their mount points:</strong></p>
+<pre class="kmconsole">lsblk</pre>
+<p><strong>List filesystems and how much space is on them in Ubuntu:</strong></p>
+<pre class="kmconsole">df</pre>
+<p>Scan your drive for errors in Ubuntu:</p>
+<pre class="kmconsole">fsck</pre>
+<h3 id="transferring_files">Copying Files And Moving Them In Ubuntu Linux</h3>
+<p>You can use the ‘cp’ command to copy files or directories in Ubuntu or any other Linux distribution. Example Usage:</p>
+<pre class="kmconsole">cp -R home/username/filename.txt /directory/subdirectory/filename.txt</pre>
+<p>The ‘-R’ option means recursive and copies files inside the directory. <a href="https://en.wikipedia.org/wiki/Cp_(Unix)">Learn more</a> about cp and its options.</p>
+<p><strong>Print working directory/display the full path of the directory that you are currently in:</strong></p>
+<pre class="kmconsole">pwd</pre>
+<h3 id="ramdisk">Create A RAM Disk In Ubuntu To Run Your Programs From RAM (Or Load Files From RAM)</h3>
+<p>You can create a partition in RAM (use a portion of your memory as a drive) to store frequently-accessed files or programs. This will enable them to load much faster (as RAM is much faster than a hard drive).</p>
+<p>Bear in mind that this has to be recreated every time your computer is restarted, so you may want to make these commands run on startup. You also need root priviledges to run the following commands (or the ‘sudo’ command).</p>
+<pre class="kmconsole">mkdir -p /media/ramdiskmount -t tmpfs -o size=1024M tmpfs /media/ramdisk</pre>
+<h2 id="networking_commands">Ubuntu/Linux Networking Commands</h2>
+<p><strong>ifconfig:</strong> This can be used to provide information about running network interfaces, including their IP addresses. This can be used to derive your computer’s IP address on your local network. Use ‘ip’ if not available.</p>
+<p><strong>ip (for newer versions such as Ubuntu 20.04))</strong>: In never versions of Ubuntu you may use the <strong>ip</strong> command if <strong>ifconfig</strong> is no longer available. Use ‘ip address’ to view your network interfaces in Ubuntu and their IP addresses.</p>
+<p>If it returns ‘eth0’, then you’re probably using an Ethernet connection, hence the ‘eth’, and ‘wlan0’ refers to Wi-Fi (wireless LAN). It may also be both if you have both a wired and a wireless network interface card (NIC).</p>
+<p><strong>ping:</strong> The ping command lets you ‘ping’ another machine such as a server to see if it responds. You can also use ping to determine if you have a working Internet connection. If you receive a response such as this:</p>
+<pre class="kmconsole_orange">PING google.com (IP Address) 56(84) bytes of data.64 bytes from lga25s61-in-f14.1e100.net (IP Address): icmp_seq=1 ttl=57 time=2.17 ms</pre>
+<p>from a website using this command, your Internet connection is working:&nbsp;<strong>ping google.com</strong></p>
+<p><strong>ifup:</strong> Start a network interface. Example Usage:</p>
+<pre class="kmconsole">ifup eth0</pre>
+<p><strong>ifdown:</strong> Stop a network interface. Example Usage:</p>
+<pre class="kmconsole">ifdown eth0</pre>
+<p><strong>whois:</strong> The whois command can provide domain info by simply typing whois domain.com.</p>
+<p>For example:</p>
+<pre class="kmconsole">whois microsoft.com</pre>
+<p><strong>netstat:</strong> The ‘netstat’ command displays the Internet connections among other network statistics for your Ubuntu machine. Example Usage:</p>
+<pre class="kmconsole">netstat</pre>
+<p><strong>traceroute:</strong> The ‘traceroute’ command attempts to trace the route that a packet has to travel to get to the specified host.</p>
+<p>Minimum required parameters: <strong>traceroute</strong> domain.com</p>
+<h2 id="managing_processes_system_resources">Managing Processes, Closing Programs, And System Resources</h2>
+<p><strong>crontab:</strong> The ‘crontab’ Ubuntu command is used to make programs run on startup in Ubuntu. <a href="http://155.138.159.94/run-a-program-on-startup-console-on-ubuntu-18-04/">Example Usage</a></p>
+<p><strong>top:</strong> The ‘top’ command displays running processes and their system resource usage such as RAM and CPU usage. Just type ‘top’ to run it and <strong>Ctrl + C</strong> to exit.</p>
+<p><strong>vmstat:</strong>&nbsp;This Ubuntu command displays virtual memory statistics. Just type ‘vmstat’ to launch it.</p>
+<p><strong>pkill:</strong> This shuts down processes by sending them the SIGTERM signal. Please be careful when using any kill commands. <a href="https://linux.die.net/man/1/pkill">Learn about its usage thoroughly</a> before trying it.</p>
+<p><strong>pgrep:</strong> pgrep will list the IDs of processes with the name you provided. For example, if you want to see all the running mysqld processes, typing ‘pregrep mysqld’ will list the IDs of the running mysqld processes.</p>
+<p><strong>w:</strong>&nbsp;The ‘w’ command lists users’ processes beside their usernames, their average system loads. Example Usage:</p>
+<pre class="kmconsole">w</pre>
+<h2 id="shutdown_restart_power_management">Shutting Down, Rebooting, and Power Management</h2>
+<p><strong>shutdown:</strong> This Ubuntu command can shut down or reboot your machine. Example Usage:</p>
+<pre class="kmconsole">shutdown -h now</pre>
+<p>or:</p>
+<pre class="kmconsole">shutdown -r now</pre>
+<p>The ‘-h’ option powers off your Ubuntu machine, and the ‘-r’ option reboots it.</p>
+<p><strong>reboot:</strong> This reboots the computer. Example Usage:</p>
+<pre class="kmconsole">reboot</pre>
+<p><strong>Get the path of a command/get the path of a program in Linux</strong></p>
+<p>You can get the path of a command or find out where a program’s binaries are installed by using the ‘dpkg-query’ command:</p>
+<pre class="kmconsole">dpkg-query -L programname</pre>
+<p>You may see many paths. For the binaries, look for the ‘usr/bin’ paths.</p>
+<h2 id="misc.">Miscellaneous</h2>
+<p>Get BIOS info via command line in Linux (this works for other distributions as well):</p>
+<pre class="kmconsole">dmidecode</pre>
+<p>You may need to install dmidecode first.</p>
+<p><strong>Check CPU Temperature In Ubuntu</strong></p>
+<p>You can check the temperature of your CPU, GPU and drives using the sensors command. You may have to install lm-sensors if it isn’t already installed.</p>
+<pre class="kmconsole">sudo apt install lm-sensors</pre>
+<p>You can also use the “wmtemp” command (must be installed as well).</p>
+<p><strong>Display the date at the command line in Ubuntu:</strong></p>
+<pre class="kmconsole">date</pre>
+<p><strong>Check your Ubuntu server’s uptime:</strong></p>
+<pre class="kmconsole">uptime</pre>
+<p><strong>Load the manual for a program:</strong></p>
+<pre class="kmconsole">man programname</pre>
+<p><strong>Clear the screen:</strong></p>
+<pre class="kmconsole">tput clear</pre>
+                       
